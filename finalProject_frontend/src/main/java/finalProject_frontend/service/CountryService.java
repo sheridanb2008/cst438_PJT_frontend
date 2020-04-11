@@ -18,7 +18,7 @@ public class CountryService {
 	    public void requestReservation(String countryName1, String countryName2) {			
 	    	
 	    	String msg  = "{\"cityName1\": \""+ countryName1 + 
-	               "\" \"cityName2\": \"" + env.resolvePlaceholders(countryName2)+
+	               "\", \"cityName2\": \"" + env.resolvePlaceholders(countryName2)+
 	               "\"}" ;
 			System.out.println("Sending message:"+msg);
 			rabbitTemplate.convertSendAndReceive(

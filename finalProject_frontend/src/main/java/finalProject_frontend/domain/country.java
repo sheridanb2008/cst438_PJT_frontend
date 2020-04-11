@@ -2,10 +2,8 @@ package finalProject_frontend.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="country")
 public class country {
 	
 	@Id
