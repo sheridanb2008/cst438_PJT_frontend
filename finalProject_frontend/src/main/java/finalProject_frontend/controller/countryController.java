@@ -50,6 +50,49 @@ public class countryController {
         return "StatsList";
     }
 
+    // year-month-day (0 padded)
+    //http://localhost:8080/countrydaterange/?country=US&startDate=2020-04-01&endDate=2020-04-12
+    @GetMapping("/countrydaterange")
+    public String getCountryDateRange( Model model, 
+                                    @RequestParam(required = true) String country,
+                                    @RequestParam(required = true) String startDate,
+                                    @RequestParam(required = true) String endDate) {
+
+        List<CovidStats> stats = countryService.getCountryCovidStatsBetweenDates(country,startDate,endDate);
+        model.addAttribute("covidstats", stats);
+        model.addAttribute("stateorcountry", "Country");
+        System.out.println(stats.toString());
+        return "StatsList";
+    }
+
+    //http://localhost:8080/stateondate/?state=Florida&date=2020-04-01
+    @GetMapping("/stateondate")
+    public String getStateStatsOnDate( Model model, 
+                                    @RequestParam(required = true) String state,
+                                    @RequestParam(required = true) String date) {
+
+        List<CovidStats> stats = countryService.getStateCovidStatsBetweenDates(state,date,date);
+        model.addAttribute("covidstats", stats);
+        model.addAttribute("stateorcountry", "State");
+        System.out.println(stats.toString());
+        return "StatsList";
+    }
+
+    // year-month-day (0 padded)
+    //http://localhost:8080/statedaterange/?state=Florida&startDate=2020-04-01&endDate=2020-04-12
+    @GetMapping("/statedaterange")
+    public String getStateDateRange( Model model, 
+                                    @RequestParam(required = true) String state,
+                                    @RequestParam(required = true) String startDate,
+                                    @RequestParam(required = true) String endDate) {
+
+        List<CovidStats> stats = countryService.getStateCovidStatsBetweenDates(state,startDate,endDate);
+        model.addAttribute("covidstats", stats);
+        model.addAttribute("stateorcountry", "State");
+        System.out.println(stats.toString());
+        return "StatsList";
+    }
+
     //http://localhost:8080/statestats?state=Idaho
     @GetMapping("/statestats")
     public String GetUSStateStats( Model model, @RequestParam(required = true) String state) {
@@ -59,7 +102,6 @@ public class countryController {
         System.out.println(stats.toString());
         return "CovidStats";
     }
-    
     
 
     @PostMapping("/country/post")

@@ -76,6 +76,25 @@ public class CountryService {
         return statsList;
     }
 
+    public List<CovidStats> getStateCovidStatsBetweenDates(String state, String startDate, String endDate) {
+
+        String url = "http://localhost:8070/covid/daterange/usstate/" + state + "/?";
+        url = url + "startDate=" + startDate + "&endDate=" + endDate;
+        ResponseEntity<JsonNode> response = restTemplate.getForEntity(url, JsonNode.class);
+        JsonNode json = response.getBody();
+        System.out.print(json.toPrettyString());
+        List<CovidStats> statsList = new ArrayList<CovidStats>();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            statsList = mapper.readerFor(new TypeReference<List<CovidStats>>() {
+            }).readValue(json);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return statsList;
+    }
+
     public CovidStats getUSStateCovidStats(String state) {
         
         ResponseEntity<JsonNode> response = restTemplate.getForEntity(
