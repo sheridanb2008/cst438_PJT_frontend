@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Covid-19</title>
+</head>
+<h1>Covid-19 Statistics</h1>
+<body>
+    <span th:inline="text"> [[${stateorcountry}]]: [[${covidstats.country}]]</span><br/>
+    <span th:inline="text"> Confirmed Cases: [[${covidstats.confirmed}]]</span><br/>
+    <span th:inline="text"> Deaths: [[${covidstats.deaths}]]</span><br/>
+    <span th:inline="text"> Active Cases: [[${covidstats.active}]]</span><br/>
+    <span th:inline="text"> Recovered: [[${covidstats.recovered}]]</span><br/>
+    <span th:inline="text"> Last Updated: [[${covidstats.lastUpdated}]]</span><br/>
+
+</body>
+</html>
