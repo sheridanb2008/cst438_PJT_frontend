@@ -1,6 +1,7 @@
 package finalProject_frontend.controller;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class countryController {
     public String SelectCountry( Model model) {
         
         List<String> cList = countryService.getCountryList();
+        cList.sort( Comparator.comparing( String::toString ) );
         model.addAttribute("countries", cList);
         return "selectCountry";
         
@@ -123,7 +125,7 @@ public class countryController {
     public ResponseEntity<List<String>> getCountryList() {
 
         List<String> countries = new ArrayList<String>();
-        
+        countries.sort( Comparator.comparing( String::toString ) );
         return new ResponseEntity<List<String>>(countries, HttpStatus.OK);	
     }
     
@@ -131,7 +133,7 @@ public class countryController {
     public ResponseEntity<List<String>> getUSStateList() {
 
         List<String> states = new ArrayList<String>();
-        
+        states.sort( Comparator.comparing( String::toString ) );
         return new ResponseEntity<List<String>>(states, HttpStatus.OK);	
     }
 }
