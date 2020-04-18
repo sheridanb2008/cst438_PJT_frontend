@@ -1,5 +1,7 @@
 package finalProject_frontend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +36,20 @@ public class countryController {
         
     }
 
+    // year-month-day (0 padded)
+    //http://localhost:8080/countryondate/?country=US&date=2020-04-01
+    @GetMapping("/countryondate")
+    public String getCountryStatsOnDate( Model model, 
+                                    @RequestParam(required = true) String country,
+                                    @RequestParam(required = true) String date) {
+
+        List<CovidStats> stats = countryService.getCountryCovidStatsBetweenDates(country,date,date);
+        model.addAttribute("covidstats", stats);
+        model.addAttribute("stateorcountry", "country");
+        System.out.println(stats.toString());
+        return "StatsList";
+    }
+
     //http://localhost:8080/statestats?state=Idaho
     @GetMapping("/statestats")
     public String GetUSStateStats( Model model, @RequestParam(required = true) String state) {
@@ -42,7 +58,6 @@ public class countryController {
         model.addAttribute("stateorcountry", "State");
         System.out.println(stats.toString());
         return "CovidStats";
-        
     }
     
     

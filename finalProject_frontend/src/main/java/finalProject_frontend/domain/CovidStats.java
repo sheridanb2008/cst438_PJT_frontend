@@ -30,6 +30,10 @@ public class CovidStats {
     int recovered = 0;
     java.sql.Date lastUpdated;
 
+    public CovidStats() {
+        lastUpdated = new java.sql.Date(0);
+    }
+
     public CovidStats(String country, JsonNode json) {
         this.country = country;
         confirmed = json.get("confirmed").asInt();
@@ -43,6 +47,10 @@ public class CovidStats {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public long getId() {
+        return id;
     }
 
     public int getActive() {
@@ -99,6 +107,10 @@ public class CovidStats {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
 }
