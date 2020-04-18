@@ -7,10 +7,14 @@
 <h1>Select Country</h1>
 <body>
 
-	<form action="#" th:action="@{/country/post}"  method="post">
-	
+	<!--<form action="#" th:action="@{/country/post}"  method="post">-->
+    <form action="#" th:action="countrystats"  method="get">
 		Select Country:
 		<select name="country">
+            <span th:each="country : ${countries}">
+                <option th:value = "${country}">[[${country}]]</option>
+            </span>
+<!--
 			<option value = "Afghanistan">Afghanistan</option>
 			<option value = "Albania">Albania</option>
 			<option value = "Algeria">Algeria</option>
@@ -201,7 +205,9 @@
 			<option value = "Western-Sahara">Western-Sahara</option>
 			<option value = "Yemen">Yemen</option>
 			<option value = "Zambia">Zambia</option>
-			<option value = "Zimbabwe">Zimbabwe</option>
+            <option value = "Zimbabwe">Zimbabwe</option>
+            
+-->
 		</select> <br />
 
 		<input type="submit" value="Submit"/>

@@ -1,8 +1,11 @@
 package finalProject_frontend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +22,8 @@ public class countryController {
     @GetMapping("/select")
     public String SelectCountry( Model model) {
         
-        
-        
+        List<String> cList = countryService.getCountryList();
+        model.addAttribute("countries", cList);
         return "selectCountry";
         
     }
@@ -114,5 +117,21 @@ public class countryController {
         countryService.requestReservation(countryName1, countryName2);
         
         return "Stats";
+    }
+
+    @GetMapping("/covid/countrylist")
+    public ResponseEntity<List<String>> getCountryList() {
+
+        List<String> countries = new ArrayList<String>();
+        
+        return new ResponseEntity<List<String>>(countries, HttpStatus.OK);	
+    }
+    
+    @GetMapping("/covid/usstatelist")
+    public ResponseEntity<List<String>> getUSStateList() {
+
+        List<String> states = new ArrayList<String>();
+        
+        return new ResponseEntity<List<String>>(states, HttpStatus.OK);	
     }
 }

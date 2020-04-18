@@ -107,4 +107,38 @@ public class CountryService {
         return stats;
     }
 
+    public List<String> getCountryList() {
+        String url = "http://localhost:8070/covid/countrylist";
+        ResponseEntity<JsonNode> response = restTemplate.getForEntity(url, JsonNode.class);
+        JsonNode json = response.getBody();
+        System.out.print(json.toPrettyString());
+        List<String> countryList = new ArrayList<String>();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            countryList = mapper.readerFor(new TypeReference<List<String>>() {
+            }).readValue(json);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return countryList;
+    }
+
+    public List<String> getStateList() {
+        String url = "http://localhost:8070/covid/statelist";
+        ResponseEntity<JsonNode> response = restTemplate.getForEntity(url, JsonNode.class);
+        JsonNode json = response.getBody();
+        System.out.print(json.toPrettyString());
+        List<String> stateList = new ArrayList<String>();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            stateList = mapper.readerFor(new TypeReference<List<String>>() {
+            }).readValue(json);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return stateList;
+    }
+
 }
