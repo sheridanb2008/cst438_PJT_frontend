@@ -36,10 +36,9 @@ public class CountryService {
         this.restTemplate = new RestTemplate();
     }
 
-    public void requestReservation(String countryName1, String countryName2) {
+    public void requestReservation(String country) {
 
-        String msg = "{\"cityName1\": \"" + countryName1 + "\", \"cityName2\": \""
-                + env.resolvePlaceholders(countryName2) + "\"}";
+        String msg = "{\"country\": \"" + env.resolvePlaceholders(country) + "\"}";
         System.out.println("Sending message:" + msg);
         rabbitTemplate.convertSendAndReceive(fanout.getName(), "", // routing key none.
                 msg);

@@ -7,23 +7,15 @@ import javax.persistence.Id;
 public class country {
 	
 	@Id
-	private String name;
 	private int population;
 	
 	
 	
-	public country(String name, int population) {
+	public country(int population) {
 		super();
-		this.name = name;
 		this.population = population;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public int getPopulation() {
 		return population;
 	}

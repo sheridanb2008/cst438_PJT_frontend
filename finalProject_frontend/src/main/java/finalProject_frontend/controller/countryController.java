@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import finalProject_frontend.ReservationEventHandler;
 import finalProject_frontend.domain.CovidStats;
 import finalProject_frontend.service.CountryService;
 @Controller
 public class countryController {
     @Autowired
     private CountryService countryService;
+    
+    @Autowired
+    private ReservationEventHandler eventHandler ;
     
     @GetMapping("/select")
     public String SelectCountry( Model model) {
@@ -37,6 +41,14 @@ public class countryController {
         model.addAttribute("covidstats", stats);
         model.addAttribute("stateorcountry", "Country");
         System.out.println(stats.toString());
+        
+        countryService.requestReservation(country);
+        stats.setPopulation(eventHandler.getPopulation());
+        stats.setActivePercent(eventHandler.getPopulation());
+        stats.setConfirmedPercent(eventHandler.getPopulation());
+        stats.setDeathPercent(eventHandler.getPopulation());
+        
+        
         return "CovidStats";
         
     }
@@ -109,17 +121,17 @@ public class countryController {
     }
     
 
-    @PostMapping("/country/post")
-    public String createReservation(@RequestParam("country") String countryName1, Model model) {
-        
-        model.addAttribute("country", countryName1);
-        
-        String countryName2 = ("${db."+ countryName1 + "}");
-        
-        countryService.requestReservation(countryName1, countryName2);
-        
-        return "Stats";
-    }
+//    @PostMapping("/country/post")
+//    public String createReservation(@RequestParam("country") String countryName1, Model model) {
+//        
+//        model.addAttribute("country", countryName1);
+//        
+//        String countryName2 = ("${db."+ countryName1 + "}");
+//        
+////        countryService.requestReservation(countryName1, countryName2);
+//        
+//        return "Stats";
+//    }
 
     @GetMapping("/covid/countrylist")
     public ResponseEntity<List<String>> getCountryList() {
